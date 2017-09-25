@@ -38,14 +38,19 @@ function replaceRed(ctx) {
 }
 
 generateNoise(ctx);
+var canvas2 = document.createElement('canvas');
+canvas2.width = 500;
+canvas2.height = 500;
+var ctx2 = canvas2.getContext('2d');
 
 setInterval(function() {
     if (updateCheckbox.checked) {
-        ctx.fillStyle = "#FF0000";
-        ctx.font = 'bold 85px Comic Sans MS';
-        ctx.textAlign = 'center';
-        ctx.fillText('Hello', 100, 100)
-        replaceRed(ctx);
+        ctx2.fillStyle = "#FF0000";
+        ctx2.font = 'bold 85px Comic Sans MS';
+        ctx2.textAlign = 'center';
+        ctx2.fillText('Hello', 100, 100)
+        replaceRed(ctx2);
+        ctx.drawImage(canvas2, 0, 0);
     }
 }, 100);
 
