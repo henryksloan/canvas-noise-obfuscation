@@ -46,6 +46,17 @@ class NoiseGenerator {
             }
         }
     }
+
+    deleteEveryOtherPixel(ctx) {
+        ctx.fillStyle = "rgb(0, 0, 0)";
+        for (var x = 0; x < canvas.width; x++) {
+           for (var y = 0; y < canvas.height; y++) {
+               if ((x % 2) + (y % 2) == 0) {
+                    ctx.fillRect(x, y, 1, 1);;
+               }
+           }
+        }
+    }
 }
 
 const width = 500, height = 500;
@@ -55,9 +66,6 @@ ctx = canvas.getContext('2d', {alpha: false});
 canvas.width = width;
 canvas.height = height;
 
-var noiseGenerator = new NoiseGenerator(type='bw', width, height);
-
-noiseGenerator.generateNoise(ctx);
 var canvas2 = document.createElement('canvas');
 canvas2.width = 500;
 canvas2.height = 500;
@@ -79,6 +87,9 @@ document.getElementsByTagName('body')[0].append(updateForm);
 updateForm.append(updateCheckbox);
 updateForm.append(updateLabel);
 
+var noiseGenerator = new NoiseGenerator(type='bw', width, height);
+noiseGenerator.generateNoise(ctx);
+noiseGenerator.deleteEveryOtherPixel(ctx);
 setInterval(function() {
     if (updateCheckbox.checked) {
         ctx2.fillStyle = '#FF0000';
@@ -87,5 +98,6 @@ setInterval(function() {
         ctx2.fillText('Hello', 100, 100)
         noiseGenerator.replaceRed(ctx2);
         ctx.drawImage(canvas2, 0, 0);
+        noiseGenerator.deleteEveryOtherPixel(ctx);
     }
 }, 100);
